@@ -1,0 +1,20 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module auswert ! in 
+    interface  ! in :auswert
+
+        subroutine gauss_odf_wrap(orifile,ckgfile,status) ! in :auswert:../../src/gauss_odf_wrap.f
+            character*255 intent(in) :: orifile
+            character*255 intent(in) :: ckgfile
+            integer intent(out) :: status
+        end subroutine gauss_odf_wrap
+
+        subroutine cko2odf(ckostr,outstr,odf_new) ! in :auswert:../../src/cko2odf.f
+            character*255 intent(in) :: ckostr
+            character*255 intent(in) :: outstr
+            double precision intent(out) :: odf_new(19,19,19)
+        end subroutine cko2odf
+
+    end interface 
+end python module auswert

@@ -1,0 +1,31 @@
+# how to compile fortran into python module "cpfort"
+# must use environment of anaconda with correctly set up file site.cfg in path
+# c:\Users\manik\AppData\Local\Continuum\anaconda3\Lib\site-packages\numpy\distutils\
+# with lines as follows:
+### file site.cfg
+[mkl]
+mkl_libs = mkl_lapack95_lp64,mkl_blas95_lp64,mkl_intel_lp64,mkl_intel_thread,mkl_core,libiomp5md
+lapack_libs = mkl_lapack95_lp64,mkl_blas95_lp64,mkl_intel_lp64,mkl_intel_thread,mkl_core,libiomp5md
+library_dirs = c:/Program Files (x86)/IntelSWTools/compilers_and_libraries_2017.8.275/windows/mkl/lib/intel64;c:/Program Files (x86)/IntelSWTools/compilers_and_libraries_2017.8.275/windows/compiler/lib/intel64
+include_dirs = c:/Program Files (x86)/IntelSWTools/compilers_and_libraries_2017.8.275/windows/mkl/include
+
+# Then you go 
+to c:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2017.8.275\windows\bin\
+or c:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2020.2.254\windows\bin\
+or c:\Program Files (x86)\Intel\oneAPI\compiler\2023.1.0\env\
+# and run 
+ifortvars.bat intel64
+or 
+vars.bat intel64
+
+
+# You also may need to activate linker 
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.27.29110\bin\HostX86\x64\link.exe
+
+# Then back to folder with fortran files and run
+
+f2py --link-lapack_opt -m cpfort -c simplx.for minpack.f90 globals.f90 linesearch.f90 utils.f90 crystal_plasticity.f90
+
+f2py -m auswert -c auswert.pyf cko2odf.f gauss_odf.f gauss_odf_wrap.f
+
+f2py -m f2py_yldfit -c YldX.for py2f_yldfun.f90
